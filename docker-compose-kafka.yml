@@ -34,7 +34,8 @@ services:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,PLAINTEXT_HOST://0.0.0.0:29092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://147.93.30.242:29092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
@@ -76,7 +77,7 @@ services:
       bash -c "
         echo 'Waiting for Kafka to be available...'
         kafka-topics --bootstrap-server kafka:9092 --list
-        
+
         echo 'Creating topics...'
         kafka-topics --bootstrap-server kafka:9092 --create --if-not-exists --topic CustomerCreated --partitions 3 --replication-factor 1
         kafka-topics --bootstrap-server kafka:9092 --create --if-not-exists --topic CustomerUpdated --partitions 3 --replication-factor 1
@@ -92,7 +93,7 @@ services:
         kafka-topics --bootstrap-server kafka:9092 --create --if-not-exists --topic ShipmentUpdated --partitions 3 --replication-factor 1
         kafka-topics --bootstrap-server kafka:9092 --create --if-not-exists --topic user.login.success --partitions 3 --replication-factor 1
         kafka-topics --bootstrap-server kafka:9092 --create --if-not-exists --topic user.login.failed --partitions 3 --replication-factor 1
-        
+
         echo 'Listing topics:'
         kafka-topics --bootstrap-server kafka:9092 --list
       "
